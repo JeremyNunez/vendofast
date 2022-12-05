@@ -853,14 +853,14 @@
 	                  <div class="form-group">
 		                <label for="exampleSelectBorder">Tipo de Documento</label>
 		                <select class="custom-select form-control-border" id="exampleSelectBorder">
-		                    <option>Factura</option>
-		                    <option>Boleta</option>
-		                    <option>Ticket</option>
+		                    <option value="Factura">Factura</option>
+		                    <option value="Boleta">Boleta</option>
+		                    <option value="Ticket">Ticket</option>
 	                  	</select>
 		              </div>
 		              <div class="form-group">
                         <label>Cliente</label>
-                        <select class="select2" style="width: 100%;" data-placeholder="Seleccione" onchange="cambiarCliente(this.value)">
+                        <select class="select2" style="width: 100%;" data-placeholder="Seleccione" onchange="cambiarCliente(this.value)" id="cliente">
                         	<option></option>
 	                        <option value="1">INVERSIONES DIOMART SAC</option>
 	                        <option value="2">INVERSIONES JYB EIRL</option>
@@ -934,35 +934,7 @@
 
                      <tr class="total">
                     </tr>
-                    <tr>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th><strong>NETO S/</strong></th>
-                      <th></th>
-                     
-                    </tr>
-                    <tr>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th><strong>IGV S/</strong></th>
-                      <th></th>
-                    </tr>
-                    <tr>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th><strong>EXONERADO S/</strong></th>
-                      <th></th>
-                    </tr>
-                    <tr>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th><strong>TOTAL S/</strong></th>
-                      <th></th>
-                    </tr>
+                    
                     <tr>
                       <th colspan="5" style="text-align: center;"><a type="submit" class="btn btn-success" onclick="GuardarVenta()">Guardar</a></th>
                     </tr>
@@ -1014,6 +986,8 @@
 <!-- Page specific script -->
 <!-- Select2 -->
 <script src="../../plugins/select2/js/select2.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
 $(function () {
   bsCustomFileInput.init();
@@ -1081,16 +1055,30 @@ function agregarProducto(){
     alert('INGRESE CANTIDAD');
   }
 
-  sumar();
 }
 
-function sumar(){
-  $(".rows_products").find(".total_prod_u").each(function() {
-    console.log($(this).val());
-      contador=0;
-      contador++;
-    });
+function redireccionar(){
+  window.location.href = "../examples/invoice.html";
 }
+
+function GuardarVenta(){
+  var tipodoc=$('#exampleSelectBorder').val();
+  var seleccion = document.getElementById('cliente');
+  var cliente = seleccion.options[seleccion.selectedIndex].value;
+  var cliente_name = seleccion.options[seleccion.selectedIndex].text;
+  Swal.fire({
+    type: 'success',
+    title: 'Venta realizada',
+    text: 'Se realizo la venta correctamente'
+  })
+  setTimeout("redireccionar()", 2000);
+}
+
+
+ 
+
+
+
 
 </script>
 </body>
